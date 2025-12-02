@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDL Studio · Dark Web Dev Collective</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-1: #020617;
+      --bg-2: #040016;
+      --bg-3: #020617;
+      --accent-cyan: #22d3ee;
+      --accent-violet: #7c3aed;
+      --accent-pink: #ec4899;
+      --accent-lime: #84cc16;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --glass: rgba(15,23,42,0.88);
+      --border-subtle: rgba(148,163,184,0.45);
+      --radius-lg: 22px;
+      --shadow-strong: 0 30px 120px rgba(0,0,0,0.9);
+      --nav-height: 68px;
+      --dock-height: 70px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      color: var(--text-main);
+      background: radial-gradient(circle at top left,#0b1120 0%,#020617 40%,#000 100%);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg,#22d3ee,#7c3aed);
+      border-radius: 999px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Infinite moving gradient background */
+    .bg-animated {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: radial-gradient(circle at 0% 0%,#1e40af 0,transparent 55%),
+                  radial-gradient(circle at 100% 0%,#7c3aed 0,transparent 60%),
+                  radial-gradient(circle at 0% 100%,#22c55e 0,transparent 55%),
+                  radial-gradient(circle at 100% 100%,#22d3ee 0,transparent 60%),
+                  radial-gradient(circle at 50% 50%,#020617 0, #000 60%);
+      background-size: 200% 200%;
+      animation: moveGradient 22s ease-in-out infinite alternate;
+      filter: blur(24px);
+      opacity: 0.9;
+    }
+    @keyframes moveGradient {
+      0% { background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 50% 50%; }
+      50% { background-position: 20% 40%, 80% 20%, 20% 80%, 80% 90%, 60% 40%; }
+      100% { background-position: 40% 100%, 60% 0%, 0% 60%, 100% 40%, 40% 60%; }
+    }
+
+    /* Global glass card + motion */
+    .glass {
+      background: radial-gradient(circle at top,#0f172a 0%,#020617 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-strong);
+      backdrop-filter: blur(22px);
+    }
+
+    .section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    main {
+      padding-top: 26px;
+      padding-bottom: calc(var(--dock-height) + 20px);
+    }
+
+    .tagline {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(156,163,175,0.9);
+      margin-bottom: 10px;
+    }
+
+    .headline-xl {
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .glow-text {
+      background: linear-gradient(90deg,#22d3ee,#7c3aed,#ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subhead {
+      font-size: 14px;
+      max-width: 520px;
+      color: var(--text-muted);
+    }
+
+    .chip-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      font-size: 11px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at 0 0,rgba(56,189,248,0.2),rgba(15,23,42,0.96));
+      color: var(--text-muted);
+    }
+
+    /* HERO LAYOUT */
+    #hero .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.05fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-right {
+      position: relative;
+      min-height: 320px;
+    }
+
+    .hero-stats {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 10px;
+      font-size: 11px;
+    }
+    .stat-card {
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(156,163,175,0.9);
+    }
+    .stat-value {
+      font-size: 13px;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-moto {
+      margin-top: 18px;
+      padding: 11px 13px;
+      border-radius: 16px;
+      border: 1px solid rgba(56,189,248,0.8);
+      background: radial-gradient(circle at 0 0,rgba(56,189,248,0.2),rgba(15,23,42,0.96));
+      font-size: 12px;
+      color: #e5e7eb;
+      box-shadow: 0 0 32px rgba(56,189,248,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-moto::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(120deg,rgba(34,211,238,0.18),transparent,rgba(236,72,153,0.18));
+      mix-blend-mode: soft-light;
+      opacity:0.6;
+      pointer-events:none;
+    }
+
+    .hero-moto span {
+      color:#a5b4fc;
+    }
+
+    .hero-cta-row {
+      margin-top: 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn-primary {
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      background: linear-gradient(120deg,#22c55e,#22d3ee,#7c3aed);
+      color:#020617;
+      box-shadow: 0 0 34px rgba(56,189,248,0.8);
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 0 44px rgba(45,212,191,0.9);
+    }
+    .btn-ghost {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.8);
+      color: var(--text-muted);
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      transition:border-color 0.16s ease,color 0.16s ease,background 0.16s ease;
+    }
+    .btn-ghost:hover{
+      border-color:rgba(129,140,248,0.9);
+      color:var(--text-main);
+      background:rgba(15,23,42,1);
+    }
+
+    /* HERO RIGHT – MAIN IMAGE + POPUP SHELL */
+    .hero-frame {
+      position:relative;
+      width:100%;
+      max-width:360px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .hero-main-card {
+      position:relative;
+      padding:10px;
+      border-radius:24px;
+      background: radial-gradient(circle at top,#22d3ee33,#020617 60%);
+      box-shadow:0 30px 80px rgba(0,0,0,0.95);
+    }
+    .hero-main-inner {
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(148,163,184,0.5);
+      background:#020617;
+    }
+    .hero-main-inner .placeholder {
+      height:260px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:13px;
+      color:var(--text-muted);
+    }
+
+    .hero-status {
+      position:absolute;
+      top:12px;
+      left:12px;
+      font-size:10px;
+      padding:5px 9px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(52,211,153,0.85);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      color:#bbf7d0;
+    }
+    .hero-status .dot{
+      width:7px;height:7px;border-radius:999px;background:#22c55e;
+      box-shadow:0 0 10px rgba(34,197,94,0.9);
+    }
+    .hero-badge {
+      position:absolute;
+      bottom:12px;
+      right:12px;
+      font-size:10px;
+      padding:6px 9px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(56,189,248,0.8);
+      color:#e5e7eb;
+    }
+
+    .hero-floating {
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+    .hero-floating-card {
+      position:absolute;
+      width:170px;
+      padding:10px 11px;
+      border-radius:16px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(129,140,248,0.9);
+      box-shadow:0 22px 60px rgba(15,23,42,1);
+      font-size:10px;
+      pointer-events:auto;
+      cursor:pointer;
+      transition:transform 0.18s ease,box-shadow 0.18s ease;
+    }
+    .hero-floating-card:hover{
+      transform:translateY(-4px) translateX(2px);
+      box-shadow:0 28px 70px rgba(0,0,0,1);
+    }
+    .hero-floating-card h4 {
+      font-size:11px;
+      margin-bottom:4px;
+      color:#e5e7eb;
+    }
+    .hero-floating-card p {
+      color:var(--text-muted);
+      line-height:1.4;
+    }
+
+    .hero-floating-card.small {
+      font-size:10px;
+    }
+
+    /* Sections */
+    .section-header {
+      margin-bottom:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+    }
+    .section-header p{
+      font-size:12px;
+      color:var(--text-muted);
+      max-width:360px;
+    }
+
+    /* STACK / FEATURES */
+    #stack .grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);
+      gap:18px;
+    }
+    .stack-list {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      font-size:12px;
+    }
+    .stack-card {
+      padding:11px 12px;
+      border-radius:16px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(148,163,184,0.6);
+    }
+    .stack-card h4{
+      font-size:12px;
+      margin-bottom:4px;
+    }
+    .stack-card p{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    .timeline {
+      padding:12px;
+      border-radius:16px;
+      background:radial-gradient(circle at top,#7c3aed33,#020617 70%);
+      border:1px solid rgba(129,140,248,0.9);
+      font-size:11px;
+      display:grid;
+      gap:8px;
+    }
+    .timeline-item{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      color:var(--text-muted);
+    }
+    .timeline-item span.label{
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      font-size:9px;
+      color:rgba(191,219,254,0.9);
+    }
+
+    /* TEAM WITH FLOATING TABS */
+    #team .team-shell {
+      position:relative;
+      padding:18px;
+      overflow:hidden;
+    }
+    .team-main {
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,1.1fr);
+      gap:20px;
+      align-items:center;
+    }
+    .team-preview {
+      border-radius:18px;
+      border:1px dashed rgba(148,163,184,0.65);
+      background:rgba(15,23,42,0.85);
+      padding:14px;
+      font-size:12px;
+      color:var(--text-muted);
+    }
+    .team-preview .big-label{
+      font-size:11px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:rgba(148,163,184,0.9);
+      margin-bottom:6px;
+    }
+
+    .profile-tabs {
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .profile-tab {
+      position:relative;
+      padding:11px 12px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.96);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      transition:transform 0.18s ease,box-shadow 0.18s ease,border-color 0.18s ease;
+    }
+    .profile-tab:hover{
+      transform:translateY(-3px) translateX(2px);
+      box-shadow:0 18px 45px rgba(0,0,0,0.9);
+      border-color:rgba(56,189,248,0.9);
+    }
+    .profile-tab.active{
+      border-color:rgba(56,189,248,1);
+      box-shadow:0 20px 60px rgba(0,0,0,1);
+    }
+
+    .pfp {
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:radial-gradient(circle at 30% 10%,#22d3ee,#9333ea,#020617);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:10px;
+      color:#e5e7eb;
+      overflow:hidden;
+    }
+    .pfp span.small {
+      font-size:9px;
+    }
+
+    .profile-info {
+      flex:1;
+    }
+    .profile-name {
+      font-size:13px;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .profile-role {
+      font-size:11px;
+      color:var(--text-muted);
+    }
+    .profile-tags {
+      margin-top:4px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      font-size:10px;
+      color:rgba(148,163,184,0.9);
+    }
+    .profile-tag-pill {
+      padding:2px 6px;
+      border-radius:999px;
+      border:1px solid rgba(75,85,99,0.9);
+    }
+
+    .profile-meta {
+      font-size:10px;
+      text-align:right;
+      color:rgba(148,163,184,0.9);
+    }
+
+    /* TEAM POPUP "WEB A" */
+    .team-popup-wrapper {
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:40;
+      pointer-events:none;
+    }
+    .team-popup-overlay {
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top,#0b1120aa,#000000f0);
+      opacity:0;
+      transition:opacity 0.3s ease;
+    }
+    .team-popup {
+      position:relative;
+      width:100%;
+      max-width:960px;
+      transform:translateY(40px) scale(0.95);
+      opacity:0;
+      transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),opacity 0.35s ease;
+      pointer-events:auto;
+    }
+    .team-popup-inner{
+      padding:18px 18px 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .team-popup-inner::before{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background:
+        radial-gradient(circle at 10% 0%,rgba(56,189,248,0.18),transparent 55%),
+        radial-gradient(circle at 90% 0%,rgba(129,140,248,0.2),transparent 55%),
+        radial-gradient(circle at 50% 100%,rgba(236,72,153,0.22),transparent 55%);
+      opacity:0.5;
+      mix-blend-mode:screen;
+      z-index:-1;
+      animation:popupGlow 16s ease-in-out infinite alternate;
+    }
+    @keyframes popupGlow {
+      0% { transform:translate3d(0,0,0); }
+      50% { transform:translate3d(-40px,30px,0); }
+      100% { transform:translate3d(20px,-40px,0); }
+    }
+
+    .popup-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .popup-header h3{
+      font-size:16px;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+    }
+    .popup-close{
+      width:26px;height:26px;border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      display:flex;align-items:center;justify-content:center;
+      font-size:14px;cursor:pointer;
+      background:rgba(15,23,42,0.96);
+      transition:background 0.16s ease,transform 0.16s ease;
+    }
+    .popup-close:hover{ background:#111827; transform:translateY(-1px); }
+
+    .popup-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,1.1fr);
+      gap:16px;
+      font-size:12px;
+    }
+    .popup-col h4{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:rgba(191,219,254,0.9);
+      margin-bottom:8px;
+    }
+    .popup-card{
+      padding:10px 11px;
+      border-radius:16px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.6);
+      margin-bottom:8px;
+    }
+    .popup-tag-row{
+      margin-top:6px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      font-size:10px;
+      color:rgba(148,163,184,0.9);
+    }
+
+    .team-popup-wrapper.active .team-popup-overlay{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .team-popup-wrapper.active .team-popup{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+    /* CONTACT */
+    #contact .grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);
+      gap:18px;
+      font-size:12px;
+    }
+    .contact-card{
+      padding:14px;
+      border-radius:18px;
+      background:radial-gradient(circle at top,#22d3ee33,#020617 70%);
+      border:1px solid rgba(56,189,248,0.9);
+    }
+    .contact-row{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .contact-item{
+      padding:8px 9px;
+      border-radius:12px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(148,163,184,0.7);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    .contact-item span.label{
+      font-size:10px;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      color:rgba(148,163,184,0.9);
+    }
+    .contact-item a{
+      font-size:11px;
+      color:#e5e7eb;
+    }
+    .badge-small{
+      padding:4px 7px;
+      border-radius:999px;
+      border:1px solid rgba(74,222,128,0.8);
+      font-size:9px;
+      color:#bbf7d0;
+    }
+
+    /* BOTTOM CONTROL DOCK */
+    .dock {
+      position:fixed;
+      left:50%;
+      bottom:14px;
+      transform:translateX(-50%);
+      z-index:30;
+      height:var(--dock-height);
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(148,163,184,0.8);
+      box-shadow:0 20px 80px rgba(0,0,0,1);
+      backdrop-filter:blur(20px);
+    }
+    .dock-group{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dock-btn{
+      min-width:72px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      background:rgba(15,23,42,0.9);
+      font-size:11px;
+      color:var(--text-muted);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      cursor:pointer;
+      transition:background 0.16s ease,color 0.16s ease,border-color 0.16s ease,transform 0.16s ease;
+    }
+    .dock-btn span.icon{
+      font-size:12px;
+    }
+    .dock-btn:hover{
+      background:rgba(15,23,42,1);
+      color:var(--text-main);
+      border-color:rgba(56,189,248,0.9);
+      transform:translateY(-1px);
+    }
+    .dock-btn.active{
+      background:linear-gradient(120deg,#22d3ee33,#7c3aed33);
+      color:#e5e7eb;
+      border-color:rgba(56,189,248,1);
+    }
+    .dock-divider{
+      width:1px;
+      height:26px;
+      background:linear-gradient(to bottom,transparent,#4b5563,transparent);
+    }
+
+    footer{
+      padding:18px 0 26px;
+      text-align:center;
+      font-size:10px;
+      color:rgba(156,163,175,0.9);
+    }
+
+    /* Motion helpers */
+    .fade-up{
+      opacity:0;
+      transform:translateY(40px);
+      transition:opacity 0.6s cubic-bezier(0.22,0.61,0.36,1),
+                 transform 0.6s cubic-bezier(0.22,0.61,0.36,1);
+    }
+    .fade-up.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 900px){
+      #hero .grid, #stack .grid, #team .team-main, #contact .grid, .popup-grid{
+        grid-template-columns:minmax(0,1fr);
+      }
+      .hero-right{ order:-1; }
+      .dock{
+        width:calc(100% - 28px);
+        justify-content:space-between;
+      }
+    }
+    @media (max-width: 520px){
+      .dock-btn span.label{ display:none; }
+      .dock-btn{ min-width:auto; padding-inline:8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animated"></div>
+
+  <main>
+    <!-- HERO / OVERVIEW -->
+    <section id="hero" class="section">
+      <div class="container glass fade-up">
+        <div class="grid">
+          <div class="hero-left">
+            <div class="tagline">NDL Studio · Dark Web Dev Collective</div>
+            <h1 class="headline-xl">
+              <span class="glow-text">Dark, animated websites</span><br>
+              for brands that want to look untouchable.
+            </h1>
+            <p class="subhead">
+              Three specialists – developer, systems mind, and manager – building high‑end web experiences for companies and individuals.
+              No fluff, just sharp execution.
+            </p>
+
+            <div class="chip-row">
+              <div class="chip">Dark‑mode first · Android & Windows</div>
+              <div class="chip">Custom animations · Always moving</div>
+              <div class="chip">Single‑page & full products</div>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-card">
+                <div class="stat-label">Focus</div>
+                <div class="stat-value">Custom web builds</div>
+                <span>Landing pages, portfolios, micro‑sites.</span>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Stack</div>
+                <div class="stat-value">HTML · CSS · JS</div>
+                <span>Clean, fast and GitHub‑ready.</span>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Style</div>
+                <div class="stat-value">Neo‑dark</div>
+                <span>Gradients, glass, subtle motion.</span>
+              </div>
+            </div>
+
+            <div class="hero-moto">
+              We build interfaces that feel like <span>future tools</span>, not static posters – dark, alive, and tuned for Android screens and Windows desktops.
+            </div>
+
+            <div class="hero-cta-row">
+              <a href="#contact" class="btn-primary">
+                Start a project
+                <span>↗</span>
+              </a>
+              <a href="#" class="btn-ghost" id="open-team-popup">
+                About the team (pop‑out)
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-frame">
+              <div class="hero-main-card">
+                <div class="hero-main-inner">
+                  <!-- Replace with your given main screen picture -->
+                  <div class="placeholder">picture main (landing UI)</div>
+                  <div class="hero-status">
+                    <span class="dot"></span>
+                    <span>Accepting selected 2025 projects</span>
+                  </div>
+                  <div class="hero-badge">Designed for mobile‑first impact</div>
+                </div>
+              </div>
+
+              <!-- Floating interactive cards -->
+              <div class="hero-floating">
+                <div class="hero-floating-card" style="top:10%; left:-12%;" onclick="scrollToSection('stack')">
+                  <h4>Build once, ship everywhere</h4>
+                  <p>Android‑first layouts that scale cleanly to Windows and big screens.</p>
+                </div>
+
+                <div class="hero-floating-card small" style="bottom:8%; right:-10%;" onclick="scrollToSection('team')">
+                  <h4>NDL Trio</h4>
+                  <p>Developer · Chess mind · Manager in one aligned unit.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK / PROCESS -->
+    <section id="stack" class="section">
+      <div class="container glass fade-up">
+        <div class="section-header">
+          <div>
+            <div class="tagline">Stack & workflow</div>
+            <h2 class="headline-sm">Built for speed, tuned for detail.</h2>
+          </div>
+          <p>
+            Every site is coded by hand: no noisy templates, no random plugins.
+            The focus is on clean structure, fast load, and motion that feels purposeful.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="stack-list">
+              <div class="stack-card">
+                <h4>Front‑end core</h4>
+                <p>HTML, modern CSS, and vanilla JS – perfect for GitHub Pages and custom hosting.</p>
+              </div>
+              <div class="stack-card">
+                <h4>Dark motion design</h4>
+                <p>Infinite backgrounds, floating cards, hover reactions, and layered depth.</p>
+              </div>
+              <div class="stack-card">
+                <h4>Android‑native feel</h4>
+                <p>Layouts tested with mobile‑first mindset so everything feels natural on phones.</p>
+              </div>
+              <div class="stack-card">
+                <h4>Client control</h4>
+                <p>Sections planned with you, then delivered as clean code you can host or extend.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div>
+                  <span class="label">01 · call</span><br>
+                  Align on story, target audience, and must‑have sections.
+                </div>
+                <div>~30 min</div>
+              </div>
+              <div class="timeline-item">
+                <div>
+                  <span class="label">02 · design</span><br>
+                  Wireframes + motion plan focusing on hero and key scroll points.
+                </div>
+                <div>1‑3 days</div>
+              </div>
+              <div class="timeline-item">
+                <div>
+                  <span class="label">03 · build</span><br>
+                  Deep night build sessions; code, polish, testing across Android + Windows.
+                </div>
+                <div>3‑7 days</div>
+              </div>
+              <div class="timeline-item">
+                <div>
+                  <span class="label">04 · handoff</span><br>
+                  GitHub repo, documentation, and support window for tweaks.
+                </div>
+                <div>Included</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section">
+      <div class="container glass fade-up team-shell">
+        <div class="section-header">
+          <div>
+            <div class="tagline">Team</div>
+            <h2 class="headline-sm">Three people, one sharp studio.</h2>
+          </div>
+          <p>
+            Each person is focused and short – developer, strategist, and manager.
+            Everything else is removed so projects move fast.
+          </p>
+        </div>
+
+        <div class="team-main">
+          <div class="team-preview">
+            <div class="big-label">Visual layer</div>
+            <p>
+              This panel is your live preview zone.
+              Keep space for project screenshots or future cases – we call it “Web A”.
+            </p>
+            <ul style="margin-top:8px; padding-left:16px; font-size:11px; color:var(--text-muted);">
+              <li>picture Lauren</li>
+              <li>picture Deity_Terror</li>
+              <li>picture ncdivisive</li>
+            </ul>
+            <p style="margin-top:10px;">
+              Clicking “About the team (pop‑out)” pulls this whole preview out of the page into a floating window.
+            </p>
+          </div>
+
+          <div class="profile-tabs">
+            <!-- NC Divisive -->
+            <div class="profile-tab active" data-profile="nc">
+              <div class="pfp"><span class="small">NC</span></div>
+              <div class="profile-info">
+                <div class="profile-name">NC Divisive <span style="font-size:10px; color:#22d3ee;">Lead Developer</span></div>
+                <div class="profile-role">Dark‑theme front‑end, interaction design, GitHub handoff.</div>
+                <div class="profile-tags">
+                  <span class="profile-tag-pill">HTML · CSS · JS</span>
+                  <span class="profile-tag-pill">Android‑first layouts</span>
+                </div>
+              </div>
+              <div class="profile-meta">@ncdivisive</div>
+            </div>
+
+            <!-- Deity_Terror -->
+            <div class="profile-tab" data-profile="deity">
+              <div class="pfp"><span class="small">DT</span></div>
+              <div class="profile-info">
+                <div class="profile-name">Deity_Terror <span style="font-size:10px; color:#a855f7;">Admin · Chess AIM</span></div>
+                <div class="profile-role">Architecture, research, and back‑end coordination for projects.</div>
+                <div class="profile-tags">
+                  <span class="profile-tag-pill">INTJ 5w6 sp/sx 514</span>
+                  <span class="profile-tag-pill">Chess 2550+</span>
+                  <span class="profile-tag-pill">#researcher #philosopher #polymath</span>
+                </div>
+              </div>
+              <div class="profile-meta">@deity_terror</div>
+            </div>
+
+            <!-- Lauren -->
+            <div class="profile-tab" data-profile="lauren">
+              <div class="pfp"><span class="small">L</span></div>
+              <div class="profile-info">
+                <div class="profile-name">Lauren <span style="font-size:10px; color:#22c55e;">Manager</span></div>
+                <div class="profile-role">Bookings, timelines, and keeping communication clean with brands.</div>
+                <div class="profile-tags">
+                  <span class="profile-tag-pill">DM‑first contact</span>
+                  <span class="profile-tag-pill">Scope & contracts</span>
+                </div>
+              </div>
+              <div class="profile-meta">@lauren.lyyyy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container glass fade-up">
+        <div class="section-header">
+          <div>
+            <div class="tagline">Contact</div>
+            <h2 class="headline-sm">DM to begin a dark build.</h2>
+          </div>
+          <p>
+            All projects go through the manager and admin so your brand has a single clear line for decisions and delivery.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="contact-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+              <div>
+                <div style="font-size:13px;font-weight:600;">Primary pipeline</div>
+                <div style="font-size:11px;color:var(--text-muted);">
+                  DM the manager with scope, timeline, and links. Admin and developer join the thread after approval.
+                </div>
+              </div>
+              <div class="badge-small">Strict & clear</div>
+            </div>
+
+            <div class="contact-row">
+              <div class="contact-item">
+                <div>
+                  <span class="label">Manager Instagram</span><br>
+                  <a href="https://www.instagram.com/lauren.lyyyy" target="_blank">@lauren.lyyyy</a>
+                </div>
+                <span>Required for bookings</span>
+              </div>
+              <div class="contact-item">
+                <div>
+                  <span class="label">Developer Instagram</span><br>
+                  <a href="https://www.instagram.com/ncdivisive" target="_blank">@ncdivisive</a>
+                </div>
+                <span>For previous work</span>
+              </div>
+              <div class="contact-item">
+                <div>
+                  <span class="label">Admin Instagram</span><br>
+                  <a href="https://www.instagram.com/deity_terror" target="_blank">@deity_terror</a>
+                </div>
+                <span>Systems & follow‑up</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:11px;color:var(--text-muted);display:flex;flex-direction:column;gap:10px;">
+            <div class="contact-item">
+              <div>
+                <span class="label">Tech stack</span><br>
+                <span>Pure front‑end builds hosted on GitHub, Vercel, or your own server.</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div>
+                <span class="label">Best fit</span><br>
+                <span>Creators, brands, and companies that want one unforgettable, moving dark site.</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div>
+                <span class="label">Next step</span><br>
+                <span>Send a DM with “Dark site project”, a short brief, and your deadline.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TEAM POPUP (WEB A) -->
+  <div class="team-popup-wrapper" id="team-popup">
+    <div class="team-popup-overlay"></div>
+    <div class="team-popup">
+      <div class="container">
+        <div class="team-popup-inner glass">
+          <div class="popup-header">
+            <div>
+              <div class="tagline">Web A · Team overlay</div>
+              <h3>NDL Studio – Inside the system</h3>
+            </div>
+            <div class="popup-close" id="close-team-popup">✕</div>
+          </div>
+
+          <div class="popup-grid">
+            <div class="popup-col">
+              <h4>NC Divisive · Developer</h4>
+              <div class="popup-card">
+                Dark‑theme layouts, animation systems, and GitHub builds that keep everything clean for future updates.
+              </div>
+
+              <h4>Lauren · Manager</h4>
+              <div class="popup-card">
+                All external contact, negotiation, and scheduling goes through Lauren so the build stays calm and predictable.
+              </div>
+            </div>
+
+            <div class="popup-col">
+              <h4>Deity_Terror · Admin / Chess AIM</h4>
+              <div class="popup-card">
+                INTJ 5w6 sp/sx 514 mind behind the structure – 2550+ chess strength, research mindset, and polymath energy focused on architecture.
+                <div class="popup-tag-row">
+                  <span>#researcher</span>
+                  <span>#philosopher</span>
+                  <span>#polymath</span>
+                </div>
+              </div>
+              <div class="popup-card">
+                Every project gets rules, backups, and monitoring so the site feels like a controlled experiment, not chaos.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM CONTROL DOCK -->
+  <div class="dock">
+    <div class="dock-group">
+      <button class="dock-btn active" data-target="hero">
+        <span class="icon">◎</span><span class="label">Overview</span>
+      </button>
+      <button class="dock-btn" data-target="stack">
+        <span class="icon">⚙</span><span class="label">Stack</span>
+      </button>
+      <button class="dock-btn" data-target="team">
+        <span class="icon">👥</span><span class="label">Team</span>
+      </button>
+      <button class="dock-btn" data-target="contact">
+        <span class="icon">✉</span><span class="label">Contact</span>
+      </button>
+    </div>
+    <div class="dock-divider"></div>
+    <div class="dock-group">
+      <span style="font-size:10px;color:var(--text-muted);">Dark motion interface studio</span>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> NDL Studio · NC Divisive · Deity_Terror · Lauren. Coded for Android & Windows.
+  </footer>
+
+  <script>
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // scroll reveal
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    },{threshold:0.15});
+    document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+    // dock navigation
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      window.scrollTo({
+        top: el.offsetTop - 40,
+        behavior: 'smooth'
+      });
+    }
+    document.querySelectorAll('.dock-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const target = btn.getAttribute('data-target');
+        scrollToSection(target);
+      });
+    });
+    window.addEventListener('scroll',()=>{
+      const sections = ['hero','stack','team','contact'];
+      let current = 'hero';
+      const offset = window.scrollY + window.innerHeight * 0.3;
+      sections.forEach(id=>{
+        const el = document.getElementById(id);
+        if(el && offset >= el.offsetTop){ current = id; }
+      });
+      document.querySelectorAll('.dock-btn').forEach(btn=>{
+        btn.classList.toggle('active',btn.getAttribute('data-target')===current);
+      });
+    });
+
+    // team popup
+    const popup = document.getElementById('team-popup');
+    const openBtn = document.getElementById('open-team-popup');
+    const closeBtn = document.getElementById('close-team-popup');
+    openBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      popup.classList.add('active');
+    });
+    closeBtn.addEventListener('click', ()=>popup.classList.remove('active'));
+    popup.querySelector('.team-popup-overlay').addEventListener('click',()=>popup.classList.remove('active'));
+
+    // simple profile tab visual logic (no content swap needed yet, but feels alive)
+    document.querySelectorAll('.profile-tab').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
