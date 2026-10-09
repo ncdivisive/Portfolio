@@ -1,721 +1,1418 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NDL Studio · Web Dev Trio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="Explore room rentals, PG accommodation, beauty and cosmetics, and online chess tournaments.">
+  <title>Veyron Group | Business Portfolio</title>
+
   <style>
     :root {
-      --bg: #020617;
-      --accent-cyan: #22d3ee;
-      --accent-violet: #7c3aed;
-      --accent-pink: #ec4899;
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --glass: rgba(15,23,42,0.9);
-      --border: rgba(148,163,184,0.55);
-      --radius-lg: 22px;
-      --shadow: 0 24px 80px rgba(0,0,0,0.95);
-      --dock-height: 68px;
+      --bg: #080808;
+      --panel: #111111;
+      --panel-light: #171717;
+      --white: #f5f5f2;
+      --muted: #a5a5a0;
+      --line: #303030;
+      --soft-line: #202020;
+      --radius: 22px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
 
     body {
-      font-family: "Space Grotesk", system-ui, sans-serif;
-      background: #020617;
-      color: var(--text-main);
+      background: var(--bg);
+      color: var(--white);
+      font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.6;
       overflow-x: hidden;
-      scroll-behavior: smooth;
-      min-height: 100vh;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    /* Samurai_background */
-    <!-- FIXED BACKGROUND -->
-<div class="picture main (landing UI)">
-  <img src="https://cdn.wallpapersafari.com/84/88/DG9E8h.png" alt="picture main (landing UI)">
-</div> 
-
-/* Samurai_background */
-.bg-animated {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  animation: bgFloat 26s ease-in-out infinite alternate;
-  opacity: 0.95;
-}
-
-.bg-animated img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.72);
-}
-    @keyframes bgFloat {
-      0%   { transform: scale(1.05) translate3d(0,0,0); }
-      50%  { transform: scale(1.08) translate3d(-10px,-8px,0); }
-      100% { transform: scale(1.05) translate3d(8px,6px,0); }
+    button {
+      font: inherit;
     }
 
     .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 18px;
+      width: min(1160px, 90%);
+      margin-inline: auto;
     }
 
-    .glass {
-      background: radial-gradient(circle at top,#020617ee,#020617f7 70%);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-
-    main {
-      padding-top: 24px;
-      padding-bottom: calc(var(--dock-height) + 24px);
-    }
-
-    section { padding: 72px 0; }
-
-    .tag {
+    .eyebrow {
+      color: var(--muted);
       font-size: 11px;
-      letter-spacing: 0.18em;
+      font-weight: 700;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: rgba(156,163,175,0.9);
-      margin-bottom: 10px;
     }
 
-    .title-xl {
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      margin-bottom: 10px;
+    .section-heading {
+      font-size: clamp(32px, 5vw, 54px);
+      letter-spacing: -2px;
+      line-height: 1.12;
+      margin-top: 12px;
     }
 
-    .glow {
-      background: linear-gradient(90deg,#22d3ee,#7c3aed,#ec4899);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 480px;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
-      gap: 22px;
-      align-items: center;
-    }
-
-    .stat-row {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 10px;
-      font-size: 11px;
-    }
-    .stat {
-      padding: 10px 11px;
-      border-radius: 14px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid var(--border);
-    }
-    .stat-label {
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(156,163,175,0.9);
-    }
-    .stat-value {
-      margin-top: 4px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #e5e7eb;
-    }
-
-    .chip-row {
+    .section-copy {
+      max-width: 540px;
+      color: var(--muted);
       margin-top: 16px;
+    }
+
+    .button {
+      min-height: 48px;
+      padding: 13px 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 650;
+      transition: background .2s, color .2s, border-color .2s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      border-color: var(--white);
+      background: var(--white);
+      color: #080808;
+    }
+
+    .button.primary {
+      background: var(--white);
+      color: #080808;
+      border-color: var(--white);
+    }
+
+    .button.primary:hover {
+      background: #d8d8d3;
+    }
+
+    .button.small {
+      min-height: 40px;
+      padding: 10px 15px;
+      font-size: 12px;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8, 8, 8, .92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-mark {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+    }
+
+    .mark {
+      width: 33px;
+      height: 33px;
+      border: 1px solid #666;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      color: #c3c3be;
+      font-size: 12px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 690px;
+      min-height: min(780px, calc(100svh - 72px));
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid var(--soft-line);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      right: -220px;
+      top: 5%;
+      border: 1px solid #242424;
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 70px rgba(255,255,255,.012),
+        0 0 0 140px rgba(255,255,255,.009);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-block: 100px;
+      max-width: 790px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: .99;
+      letter-spacing: -5px;
+      margin-top: 24px;
+      font-weight: 750;
+    }
+
+    .hero h1 span {
+      color: #777771;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+      color: #b3b3ad;
+      margin-top: 27px;
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-note {
+      color: #858580;
+      font-size: 11px;
+      margin-top: 28px;
+      letter-spacing: .4px;
+    }
+
+    /* Business carousel */
+
+    .business-section {
+      padding-block: 110px 100px;
+    }
+
+    .business-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .carousel-tools {
+      display: flex;
+      gap: 9px;
+      flex-shrink: 0;
+    }
+
+    .arrow-button {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid #454545;
+      background: var(--panel);
+      color: white;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 22px;
+      transition: .2s;
+    }
+
+    .arrow-button:hover {
+      background: white;
+      color: black;
+    }
+
+    .arrow-button:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+
+    .explore-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid #333;
+      background: #101010;
+      border-radius: 14px;
+      padding: 14px 17px;
+      margin-bottom: 18px;
+    }
+
+    .explore-strip p {
+      color: #d5d5d0;
+      font-size: 12px;
+    }
+
+    .explore-strip strong {
+      color: white;
+    }
+
+    .strip-arrow {
+      font-size: 22px;
+      white-space: nowrap;
+      animation: nudge 1.5s infinite;
+    }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    .carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .business-card {
+      flex: 0 0 calc((100% - 36px) / 3);
+      min-width: 0;
+      scroll-snap-align: start;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .business-card:hover,
+    .business-card.expanded {
+      border-color: #777;
+    }
+
+    .card-top {
+      min-height: 180px;
+      padding: 23px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        radial-gradient(ellipse at top right, #292929 0, transparent 65%),
+        #141414;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .card-number {
+      color: #858580;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .card-symbol {
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .card-content {
+      padding: 23px;
+    }
+
+    .card-category {
+      color: #aaa9a3;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .card-content h3 {
+      font-size: 22px;
+      letter-spacing: -.6px;
+      line-height: 1.25;
+      margin-top: 9px;
+    }
+
+    .card-description {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 12px;
+      min-height: 62px;
+    }
+
+    .card-highlight {
+      border-top: 1px solid #292929;
+      border-bottom: 1px solid #292929;
+      padding: 14px 0;
+      margin-top: 17px;
+      font-size: 13px;
+      color: #deded8;
+    }
+
+    .card-highlight strong {
+      display: block;
+      font-size: 20px;
+      color: white;
+      letter-spacing: -.5px;
+      margin-bottom: 2px;
+    }
+
+    .card-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      font-size: 11px;
-    }
-    .chip {
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(15,23,42,0.95);
-      color: var(--text-muted);
+      margin-top: 18px;
     }
 
-    .btn-primary {
-      margin-top: 22px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
+    .details-panel {
+      display: none;
+      padding-top: 18px;
+      margin-top: 18px;
+      border-top: 1px solid #292929;
+    }
+
+    .business-card.expanded .details-panel {
+      display: block;
+    }
+
+    .details-panel p,
+    .details-panel li {
+      color: #bcbcb6;
       font-size: 13px;
-      font-weight: 600;
-      background: linear-gradient(120deg,#22c55e,#22d3ee,#7c3aed);
-      color: #020617;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 0 30px rgba(56,189,248,0.8);
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px) scale(1.01);
-      box-shadow: 0 0 40px rgba(45,212,191,0.9);
     }
 
-    .hero-frame {
-      max-width: 360px;
-      margin: 0 auto;
-      position: relative;
-    }
-    .hero-main {
-      padding: 10px;
-      border-radius: 22px;
-      background: radial-gradient(circle at top,#22d3ee33,#020617 70%);
-      box-shadow: 0 28px 80px rgba(0,0,0,0.95);
-    }
-    .hero-inner {
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background:#020617;
-    }
-    .hero-inner .placeholder {
-      height: 260px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:13px;
-      color:var(--text-muted);
-    }
-
-    .badge {
-      position:absolute;
-      top:14px;
-      left:14px;
-      padding:5px 9px;
-      border-radius:999px;
-      background:rgba(15,23,42,0.96);
-      border:1px solid rgba(52,211,153,0.85);
-      font-size:10px;
-      color:#bbf7d0;
-      display:flex;
-      gap:6px;
-      align-items:center;
-    }
-    .badge-dot {
-      width:7px;height:7px;border-radius:999px;
-      background:#22c55e;
-      box-shadow:0 0 10px rgba(34,197,94,0.9);
-    }
-
-    .stack-grid {
-      display:grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 12px;
-      font-size: 12px;
-    }
-    .stack-card {
-      padding: 11px 12px;
-      border-radius: 16px;
-      background: rgba(15,23,42,0.96);
-      border: 1px solid var(--border);
-    }
-    .stack-card h3 {
-      font-size: 12px;
-      margin-bottom: 4px;
-      color: #e5e7eb;
-    }
-    .stack-card p {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .team-grid {
-      display:grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 14px;
-      font-size: 12px;
-    }
-    .member {
-      padding: 11px 12px;
-      border-radius: 18px;
-      background: rgba(15,23,42,0.96);
-      border: 1px solid var(--border);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .member-top {
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-
-    .pfp {
-      width:44px;
-      height:44px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      overflow:hidden;
-      flex-shrink:0;
-      background:#020617;
-    }
-    .pfp img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .member-name { font-size:13px; font-weight:600; }
-    .member-role { font-size:11px; color:var(--text-muted); }
-
-    .member-tags {
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      font-size:10px;
-      color:rgba(148,163,184,0.9);
-    }
-    .tag-pill {
-      padding: 2px 6px;
-      border-radius:999px;
-      border:1px solid rgba(75,85,99,0.9);
-    }
-
-    .pic-note {
-      font-size:11px;
-      color:var(--text-muted);
-      margin-top:6px;
-    }
-
-    .contact-grid {
-      display:grid;
-      grid-template-columns:minmax(0,1.2fr) minmax(0,0.9fr);
-      gap:16px;
-      font-size:12px;
-    }
-    .contact-card {
-      padding: 13px;
-      border-radius: 18px;
-      background: radial-gradient(circle at top,#22d3ee33,#020617 70%);
-      border: 1px solid rgba(56,189,248,0.9);
-    }
-    .contact-row {
+    .details-panel ul {
+      padding-left: 18px;
       margin-top: 10px;
+    }
+
+    .details-panel li + li {
+      margin-top: 7px;
+    }
+
+    .carousel-footer {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
     }
+
+    .carousel-status {
+      color: #b6b6b0;
+      font-size: 12px;
+    }
+
+    .progress-track {
+      flex: 1;
+      max-width: 240px;
+      height: 3px;
+      background: #292929;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 25%;
+      background: #eee;
+      transition: width .2s;
+    }
+
+    .swipe-hint {
+      color: #777771;
+      font-size: 11px;
+      text-align: right;
+    }
+
+    /* About */
+
+    .about-section {
+      padding-block: 95px;
+      border-top: 1px solid var(--soft-line);
+      border-bottom: 1px solid var(--soft-line);
+      background: #0c0c0c;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .about-copy {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 18px;
+      max-width: 520px;
+    }
+
+    .principles {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid #333;
+    }
+
+    .principle {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid #333;
+    }
+
+    .principle strong {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .principle span {
+      color: #90908a;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    /* Contact */
+
+    .contact-section {
+      padding-block: 105px;
+    }
+
+    .contact-panel {
+      border: 1px solid #353535;
+      border-radius: 26px;
+      padding: clamp(25px, 5vw, 55px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      background:
+        radial-gradient(ellipse at top right, #202020 0, transparent 55%),
+        #101010;
+    }
+
+    .contact-panel h2 {
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-top: 13px;
+    }
+
+    .contact-panel .section-copy {
+      font-size: 13px;
+    }
+
+    .contact-items {
+      display: grid;
+      align-content: center;
+      gap: 12px;
+    }
+
     .contact-item {
-      padding: 8px 9px;
-      border-radius: 12px;
-      background: rgba(15,23,42,0.96);
-      border: 1px solid var(--border);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-    }
-    .contact-item span.label {
-      font-size:10px;
-      letter-spacing:0.16em;
-      text-transform:uppercase;
-      color:rgba(148,163,184,0.9);
-    }
-    .contact-item a {
-      font-size:11px;
-      color:#e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 17px;
+      border: 1px solid #333;
+      border-radius: 13px;
+      background: rgba(0, 0, 0, .2);
     }
 
-    .badge-small {
-      padding:4px 7px;
-      border-radius:999px;
-      border:1px solid rgba(74,222,128,0.85);
-      font-size:9px;
-      color:#bbf7d0;
-    }
-
-    .dock {
-      position:fixed;
-      left:50%;
-      bottom:12px;
-      transform:translateX(-50%);
-      height:var(--dock-height);
-      padding:9px 14px;
-      border-radius:999px;
-      background:rgba(15,23,42,0.96);
-      border:1px solid var(--border);
-      box-shadow:0 20px 70px rgba(0,0,0,1);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      z-index:20;
-      backdrop-filter:blur(18px);
-    }
-    .dock-btn {
-      min-width:68px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-      background:rgba(15,23,42,0.96);
-      font-size:11px;
-      color:var(--text-muted);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:4px;
-      cursor:pointer;
-      transition:background .15s ease,color .15s ease,border-color .15s ease,transform .15s ease;
-    }
-    .dock-btn span.icon { font-size:12px; }
-    .dock-btn:hover {
-      background:rgba(15,23,42,1);
-      color:var(--text-main);
-      border-color:rgba(56,189,248,0.9);
-      transform:translateY(-1px);
-    }
-    .dock-btn.active {
-      background:linear-gradient(120deg,#22d3ee33,#7c3aed33);
-      color:#e5e7eb;
-      border-color:rgba(56,189,248,1);
-    }
-
-    footer {
-      padding: 16px 0 22px;
-      text-align: center;
+    .contact-item span {
+      color: #999992;
+      display: block;
       font-size: 10px;
-      color: rgba(156,163,175,0.9);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
     }
 
-    .fade-up {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .6s cubic-bezier(0.22,0.61,0.36,1),
-                  transform .6s cubic-bezier(0.22,0.61,0.36,1);
+    .contact-item strong {
+      display: block;
+      font-size: 13px;
+      margin-top: 4px;
+      overflow-wrap: anywhere;
     }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    .contact-item .contact-arrow {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Parent company footer section */
+
+    .group-section {
+      padding-block: 75px 35px;
+      border-top: 1px solid #292929;
+      background: #050505;
+    }
+
+    .group-title {
+      font-size: clamp(34px, 6vw, 66px);
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-top: 14px;
+    }
+
+    .group-copy {
+      color: var(--muted);
+      max-width: 580px;
+      font-size: 14px;
+      margin-top: 22px;
+    }
+
+    .group-businesses {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 35px;
+    }
+
+    .group-businesses a {
+      padding: 16px;
+      border: 1px solid #2c2c2c;
+      border-radius: 12px;
+      background: #0c0c0c;
+      font-size: 12px;
+      transition: border-color .2s;
+    }
+
+    .group-businesses a:hover {
+      border-color: #aaa;
+    }
+
+    .group-businesses span {
+      display: block;
+      color: #8e8e88;
+      font-size: 10px;
+      margin-top: 6px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border-top: 1px solid #262626;
+      margin-top: 50px;
+      padding-top: 22px;
+      color: #777771;
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 17px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: white;
     }
 
     @media (max-width: 900px) {
-      .row, .contact-grid { grid-template-columns: minmax(0,1fr); }
-      .team-grid { grid-template-columns: minmax(0,1fr); }
-      .stat-row { grid-template-columns: minmax(0,1fr); }
-      .dock { width: calc(100% - 26px); justify-content: space-between; }
+      .business-card {
+        flex-basis: calc((100% - 18px) / 2);
+      }
+
+      .about-grid {
+        gap: 35px;
+      }
+
+      .group-businesses {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-    @media (max-width: 520px) {
-      .dock-btn span.label { display:none; }
-      .dock-btn { min-width:auto; padding-inline:8px; }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+      }
+
+      .nav-inner {
+        min-height: 64px;
+      }
+
+      .nav-links {
+        gap: 14px;
+        font-size: 11px;
+      }
+
+      .nav-links a:nth-child(2) {
+        display: none;
+      }
+
+      .nav-mark {
+        font-size: 12px;
+        gap: 8px;
+      }
+
+      .mark {
+        width: 29px;
+        height: 29px;
+      }
+
+      .hero {
+        min-height: 620px;
+        min-height: calc(88svh - 64px);
+      }
+
+      .hero-content {
+        padding-block: 75px;
+      }
+
+      .hero h1 {
+        font-size: clamp(47px, 13vw, 72px);
+        letter-spacing: -3px;
+      }
+
+      .hero-copy {
+        font-size: 14px;
+      }
+
+      .business-section,
+      .contact-section {
+        padding-block: 75px;
+      }
+
+      .business-top {
+        align-items: end;
+      }
+
+      .business-top .section-heading {
+        font-size: 34px;
+      }
+
+      .carousel-tools {
+        gap: 6px;
+      }
+
+      .arrow-button {
+        width: 39px;
+        height: 39px;
+      }
+
+      .business-card {
+        flex-basis: 88%;
+      }
+
+      .card-top {
+        min-height: 155px;
+      }
+
+      .card-description {
+        min-height: 0;
+      }
+
+      .explore-strip {
+        padding: 12px;
+      }
+
+      .explore-strip p {
+        font-size: 11px;
+      }
+
+      .carousel-footer {
+        flex-wrap: wrap;
+      }
+
+      .progress-track {
+        max-width: none;
+        order: 3;
+        flex-basis: 100%;
+      }
+
+      .swipe-hint {
+        text-align: left;
+      }
+
+      .about-section {
+        padding-block: 75px;
+      }
+
+      .about-grid,
+      .contact-panel {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .contact-panel {
+        padding: 25px;
+      }
+
+      .group-section {
+        padding-top: 65px;
+      }
+
+      .group-title {
+        letter-spacing: -2px;
+      }
+
+      .group-businesses {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .group-businesses a {
+        padding: 13px;
+        font-size: 11px;
+      }
+
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="bg-animated"></div>
+
+  <!-- TOP NAVIGATION -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="nav-mark" href="#home" aria-label="Return to homepage">
+        <span class="mark">V.</span>
+        <span>BUSINESS PORTFOLIO</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#businesses">Businesses</a>
+        <a href="#about">About</a>
+        <a href="#contact">Enquiries ↗</a>
+      </nav>
+    </div>
+  </header>
 
   <main>
+
     <!-- HERO -->
-    <section id="hero">
-      <div class="container glass fade-up">
-        <div class="row" style="padding:18px 16px 20px;">
-          <div>
-            <div class="tag">NDL Studio · Web development</div>
-            <h1 class="title-xl">
-              <span class="glow">Custom websites</span><br>for brands and creators.
-            </h1>
-            <p class="sub">
-              Three people building fast, dark‑styled sites for companies and individuals. Any type of website – portfolio, landing, or full product.
-            </p>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <p class="eyebrow">Multiple ventures. One vision.</p>
 
-            <div class="chip-row">
-              <div class="chip">Android & Windows ready</div>
-              <div class="chip">Dark UI · Smooth motion</div>
-              <div class="chip">Clean HTML · CSS · JS</div>
-            </div>
+        <h1>
+          Built on trust.<br>
+          <span>Driven by value.</span>
+        </h1>
 
-            <div class="stat-row">
-              <div class="stat">
-                <div class="stat-label">What we do</div>
-                <div class="stat-value">Design + code</div>
-                <span>From layout to final deploy.</span>
-              </div>
-              <div class="stat">
-                <div class="stat-label">Hosting</div>
-                <div class="stat-value">GitHub / custom</div>
-                <span>Easy to maintain.</span>
-              </div>
-              <div class="stat">
-                <div class="stat-label">Style</div>
-                <div class="stat-value">High‑tech dark</div>
-                <span>Works with any brand color.</span>
-              </div>
-            </div>
+        <p class="hero-copy">
+          Explore practical living solutions, beauty essentials and
+          competitive online chess experiences, all in one place.
+        </p>
 
-            <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-              Start a project <span>↗</span>
-            </button>
-          </div>
+        <div class="hero-actions">
+          <a class="button primary" href="#businesses">
+            Explore our businesses <span>↓</span>
+          </a>
 
-          <div>
-            <div class="hero-frame">
-              <div class="hero-main">
-                <div class="hero-inner">
-                  <!-- Put your provided main screen image here later if you want -->
-                  <div class="placeholder">picture main (landing UI)</div>
-                </div>
-                <div class="badge">
-                  <span class="badge-dot"></span>
-                  <span>Accepting selected projects</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <a class="button" href="#contact">
+            Business enquiries <span>↗</span>
+          </a>
         </div>
+
+        <p class="hero-note">
+          HOUSING · BEAUTY & COSMETICS · ONLINE CHESS
+        </p>
       </div>
     </section>
 
-    <!-- STACK -->
-    <section id="stack">
-      <div class="container glass fade-up" style="padding:18px 16px 22px;">
-        <div style="margin-bottom:16px;">
-          <div class="tag">How we build</div>
-          <h2 style="font-size:18px;letter-spacing:0.08em;text-transform:uppercase;">
-            Simple stack, sharp output.
-          </h2>
+    <!-- FOUR BUSINESS CARDS -->
+    <section class="business-section" id="businesses">
+      <div class="container">
+
+        <div class="business-top">
+          <div>
+            <p class="eyebrow">Our ventures</p>
+            <h2 class="section-heading">Four businesses.<br>Different needs.</h2>
+          </div>
+
+          <div class="carousel-tools" aria-label="Browse business cards">
+            <button class="arrow-button" id="prevButton"
+              aria-label="Previous business">‹</button>
+            <button class="arrow-button" id="nextButton"
+              aria-label="Next business">›</button>
+          </div>
         </div>
 
-        <div class="stack-grid">
-          <div class="stack-card">
-            <h3>Code</h3>
-            <p>Hand‑written HTML, CSS and JavaScript – no heavy page builders.</p>
-          </div>
-          <div class="stack-card">
-            <h3>Layout</h3>
-            <p>Mobile‑first for Android, responsive for laptops and big screens.</p>
-          </div>
-          <div class="stack-card">
-            <h3>Animation</h3>
-            <p>Subtle moving gradients, floating cards, and smooth scroll sections.</p>
-          </div>
-          <div class="stack-card">
-            <h3>Delivery</h3>
-            <p>GitHub‑ready files with clear structure so you can update later.</p>
+        <div class="explore-strip">
+          <p>
+            <strong>There are 4 businesses to explore.</strong>
+            Use the arrows or swipe left to see every card.
+          </p>
+          <span class="strip-arrow" aria-hidden="true">→</span>
+        </div>
+
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="businessTrack">
+
+            <!-- BUSINESS 1: ROOM RENTALS -->
+            <article class="business-card" id="rakesh-card">
+              <div class="card-top">
+                <span class="card-number">01 / 04</span>
+                <span class="card-symbol" aria-hidden="true">⌂</span>
+              </div>
+
+              <div class="card-content">
+                <p class="card-category">Rooms & Rentals</p>
+                <h3>Rakesh Room Rent Service</h3>
+
+                <p class="card-description">
+                  Affordable room options in Hapur for people looking
+                  for practical, comfortable living.
+                </p>
+
+                <div class="card-highlight">
+                  <strong>From ₹3,000 / room</strong>
+                  Separate rooms, kitchen facilities and sets of rooms
+                  available. Ask about availability and inclusions.
+                </div>
+
+                <div class="card-actions">
+                  <button class="button primary small details-button"
+                    aria-expanded="false">
+                    View details +
+                  </button>
+
+                  <a class="button small"
+                    href="https://www.google.com/maps/search/?api=1&query=Rakesh+Room+Rent+Service+Hapur+Uttar+Pradesh"
+                    target="_blank" rel="noopener noreferrer">
+                    Find location ↗
+                  </a>
+
+                  <a class="button small"
+                    href="https://www.instagram.com/rakeshrooms/"
+                    target="_blank" rel="noopener noreferrer">
+                    View profile ↗
+                  </a>
+                </div>
+
+                <div class="details-panel">
+                  <p><strong>Looking for a room?</strong></p>
+                  <ul>
+                    <li>Rooms advertised from ₹3,000 per room.</li>
+                    <li>Separate rooms and kitchen facilities.</li>
+                    <li>Sets of rooms may also be available.</li>
+                    <li>Contact us to confirm current availability, rent,
+                      deposit and included facilities.</li>
+                  </ul>
+
+                  <div class="card-actions">
+                    <a class="button primary small"
+                      href="tel:+918272804740">Call for availability ↗</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUSINESS 2: PG -->
+            <article class="business-card" id="pg-card">
+              <div class="card-top">
+                <span class="card-number">02 / 04</span>
+                <span class="card-symbol" aria-hidden="true">▤</span>
+              </div>
+
+              <div class="card-content">
+                <p class="card-category">Accommodation</p>
+                <h3>Elite Living PG</h3>
+
+                <p class="card-description">
+                  A straightforward accommodation option for people
+                  looking for a suitable place to stay.
+                </p>
+
+                <div class="card-highlight">
+                  <strong>Ask for current rates</strong>
+                  Contact us for room options, availability and
+                  the facilities included.
+                </div>
+
+                <div class="card-actions">
+                  <button class="button primary small details-button"
+                    aria-expanded="false">
+                    View details +
+                  </button>
+
+                  <a class="button small" href="#rakesh-card"
+                    id="pgLocationLink">
+                    Rental location ↗
+                  </a>
+
+                  <a class="button small"
+                    href="https://www.instagram.com/elitelivingpg/"
+                    target="_blank" rel="noopener noreferrer">
+                    View profile ↗
+                  </a>
+                </div>
+
+                <div class="details-panel">
+                  <p>
+                    The PG and room rental service share the same
+                    location. Use the rental location link to find
+                    Rakesh Room Rent Service on the map.
+                  </p>
+                  <ul>
+                    <li>Ask about available accommodation.</li>
+                    <li>Confirm current rates and included facilities.</li>
+                    <li>Discuss your requirements before visiting.</li>
+                  </ul>
+
+                  <div class="card-actions">
+                    <a class="button primary small"
+                      href="tel:+918272804740">Ask about rooms ↗</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUSINESS 3: SALON AND COSMETICS -->
+            <article class="business-card" id="beauty-card">
+              <div class="card-top">
+                <span class="card-number">03 / 04</span>
+                <span class="card-symbol" aria-hidden="true">✳</span>
+              </div>
+
+              <div class="card-content">
+                <p class="card-category">Beauty & Cosmetics</p>
+                <h3>Sanjana Beauty Parlour & Cosmetics</h3>
+
+                <p class="card-description">
+                  Beauty services and everyday beauty essentials
+                  with value-focused pricing.
+                </p>
+
+                <div class="card-highlight">
+                  <strong>Beauty for less</strong>
+                  Explore beauty essentials, cosmetics and offers
+                  at prices worth checking.
+                </div>
+
+                <div class="card-actions">
+                  <button class="button primary small details-button"
+                    aria-expanded="false">
+                    View details +
+                  </button>
+
+                  <a class="button small"
+                    href="https://www.google.com/maps/search/?api=1&query=Sanjana+Beauty+Parlour+Cosmetics+Hapur+Uttar+Pradesh"
+                    target="_blank" rel="noopener noreferrer">
+                    Find location ↗
+                  </a>
+
+                  <a class="button small"
+                    href="https://www.instagram.com/beauty.xly/"
+                    target="_blank" rel="noopener noreferrer">
+                    View profile ↗
+                  </a>
+                </div>
+
+                <div class="details-panel">
+                  <p><strong>Your beauty essentials, all in one place.</strong></p>
+                  <ul>
+                    <li>Cosmetics and everyday beauty products.</li>
+                    <li>Value-focused pricing on selected products.</li>
+                    <li>Ask about current offers and product availability.</li>
+                    <li>Contact us to confirm services, prices and timings.</li>
+                  </ul>
+
+                  <div class="card-actions">
+                    <a class="button primary small"
+                      href="tel:+918272804740">Ask about prices ↗</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUSINESS 4: CHESS HQ -->
+            <article class="business-card" id="chess-card">
+              <div class="card-top">
+                <span class="card-number">04 / 04</span>
+                <span class="card-symbol" aria-hidden="true">♞</span>
+              </div>
+
+              <div class="card-content">
+                <p class="card-category">Online Chess</p>
+                <h3>Chess HQ</h3>
+
+                <p class="card-description">
+                  Online chess tournaments for competitive players,
+                  with events, prizes and a growing community.
+                </p>
+
+                <div class="card-highlight">
+                  <strong>Play. Compete. Win.</strong>
+                  Online chess tournaments, competitive events
+                  and community updates.
+                </div>
+
+                <div class="card-actions">
+                  <button class="button primary small details-button"
+                    aria-expanded="false">
+                    View details +
+                  </button>
+
+                  <a class="button small"
+                    href="https://chat.whatsapp.com/JU9sp9RXJ3SDBqPnAYojt"
+                    target="_blank" rel="noopener noreferrer">
+                    Join community ↗
+                  </a>
+
+                  <a class="button small"
+                    href="https://www.instagram.com/chesssofficial/"
+                    target="_blank" rel="noopener noreferrer">
+                    View profile ↗
+                  </a>
+                </div>
+
+                <div class="details-panel">
+                  <p><strong>Enter the competition.</strong></p>
+                  <ul>
+                    <li>Online chess tournaments.</li>
+                    <li>Competitive events and community activities.</li>
+                    <li>Event-specific prizes and certificates where announced.</li>
+                    <li>Join the WhatsApp community for updates and
+                      tournament information.</li>
+                  </ul>
+
+                  <div class="card-actions">
+                    <a class="button primary small"
+                      href="https://chat.whatsapp.com/JU9sp9RXJ3SDBqPnAYojt"
+                      target="_blank" rel="noopener noreferrer">
+                      Join Chess HQ ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
           </div>
         </div>
+
+        <div class="carousel-footer">
+          <p class="carousel-status" id="carouselStatus"
+            aria-live="polite">Business 1 of 4</p>
+
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+
+          <p class="swipe-hint">Swipe or tap → to continue</p>
+        </div>
+
       </div>
     </section>
 
-    <!-- TEAM -->
-    <section id="team">
-      <div class="container glass fade-up" style="padding:18px 16px 22px;">
-        <div style="margin-bottom:16px;">
-          <div class="tag">Team</div>
-          <h2 style="font-size:18px;letter-spacing:0.08em;text-transform:uppercase;">Three people, one studio.</h2>
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow">Our approach</p>
+          <h2 class="section-heading">Different services.<br>One standard.</h2>
+
+          <p class="about-copy">
+            Every business serves a different audience. The aim is
+            simple: clear information, straightforward communication
+            and services that provide genuine value.
+          </p>
         </div>
 
-        <div class="team-grid">
-          <!-- NC Divisive -->
-          <div class="member">
-            <div class="member-top">
-              <div class="pfp">
-                <img src="https://i.pinimg.com/736x/90/f0/ab/90f0abd5178543c40256bba1abe36a88.jpg" alt="ncdivisive pfp">
-              </div>
-              <div>
-                <div class="member-name">NC Divisive</div>
-                <div class="member-role">Lead developer · front‑end</div>
-              </div>
-            </div>
-            <div class="member-tags">
-              <span class="tag-pill">Dark + clean UI</span>
-              <span class="tag-pill">GitHub deployment</span>
-            </div>
+        <div class="principles">
+          <div class="principle">
+            <strong>Clear communication</strong>
+            <span>Know what you are getting</span>
           </div>
 
-          <!-- Deity_Terror -->
-          <div class="member">
-            <div class="member-top">
-              <div class="pfp">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH87R6D4fIm6XS6t4l0CHcWZFGBhkvinrSVhzqMC4ntUrhhQBmGLUilI&s=10" alt="Deity_Terror pfp">
-              </div>
-              <div>
-                <div class="member-name">Deity_Terror</div>
-                <div class="member-role">Admin · Chess AIM · systems</div>
-              </div>
-            </div>
-            <div class="member-tags">
-              <span class="tag-pill">INTJ 5w6 sp/sx 514</span>
-              <span class="tag-pill">Chess 2550+</span>
-              <span class="tag-pill">#researcher</span>
-              <span class="tag-pill">#philosopher</span>
-              <span class="tag-pill">#polymath</span>
-            </div>
+          <div class="principle">
+            <strong>Value-focused service</strong>
+            <span>Practical options and fair pricing</span>
           </div>
 
-          <!-- Lauren -->
-          <div class="member">
-            <div class="member-top">
-              <div class="pfp">
-                <img src="https://i.pinimg.com/736x/06/68/17/06681782b619ce545f1a1d2db9684db2.jpg" alt="Lauren pfp">
-              </div
-              <div>
-                <div class="member-name">Lauren</div>
-                <div class="member-role">Manager · client contact</div>
-              </div>
-            </div>
-            <div class="member-tags">
-              <span class="tag-pill">DMs & deals</span>
-              <span class="tag-pill">Timeline & scope</span>
-            </div>
+          <div class="principle">
+            <strong>Easy enquiries</strong>
+            <span>Reach the right business</span>
           </div>
-        </div>
 
-        <div class="pic-note">
-          Main landing screenshot can be added later inside the hero frame.
+          <div class="principle">
+            <strong>Room to grow</strong>
+            <span>Independent ventures, shared vision</span>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact">
-      <div class="container glass fade-up" style="padding:18px 16px 22px;">
-        <div style="margin-bottom:16px;">
-          <div class="tag">Contact</div>
-          <h2 style="font-size:18px;letter-spacing:0.08em;text-transform:uppercase;">Work with us.</h2>
-        </div>
+    <section class="contact-section" id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <p class="eyebrow">Get in touch</p>
+            <h2>Have a question?<br>Let's talk.</h2>
 
-        <div class="contact-grid">
-          <div class="contact-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-              <div>
-                <div style="font-size:13px;font-weight:600;">Main channel</div>
-                <div style="font-size:11px;color:var(--text-muted);">
-                  DM the manager with your idea, budget and deadline. Developer and admin join after approval.
-                </div>
-              </div>
-              <div class="badge-small">Fast reply</div>
-            </div>
-
-            <div class="contact-row">
-              <div class="contact-item">
-                <div>
-                  <span class="label">Manager Instagram</span><br>
-                  <a href="https://www.instagram.com/lauren.lyyyy" target="_blank" rel="noopener">@lauren.lyyyy</a>
-                </div>
-                <span>Required</span>
-              </div>
-              <div class="contact-item">
-                <div>
-                  <span class="label">Developer Instagram</span><br>
-                  <a href="https://www.instagram.com/ncdivisive" target="_blank" rel="noopener">@ncdivisive</a>
-                </div>
-                <span>Work preview</span>
-              </div>
-              <div class="contact-item">
-                <div>
-                  <span class="label">Admin Instagram</span><br>
-                  <a href="https://www.instagram.com/deity_terror" target="_blank" rel="noopener">@deity_terror</a>
-                </div>
-                <span>Systems</span>
-              </div>
-            </div>
+            <p class="section-copy">
+              For room availability, PG enquiries, salon and cosmetics
+              questions, or general business enquiries, use the
+              contact details here.
+            </p>
           </div>
 
-          <div class="contact-row">
-            <div class="contact-item">
+          <div class="contact-items">
+            <a class="contact-item" href="tel:+918272804740">
               <div>
-                <span class="label">Admin email</span><br>
-                <a href="mailto:deityxterror@gmail.com">deityxterror@gmail.com</a>
+                <span>Phone / Business enquiries</span>
+                <strong>8272804740</strong>
               </div>
-              <span>Briefs & files</span>
-            </div>
-            <div class="contact-item">
+              <span class="contact-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="contact-item" href="mailto:orivexus@gmail.com">
               <div>
-                <span class="label">What we deliver</span><br>
-                <span>One‑page sites, portfolios, and custom layouts – always dark‑styled and animated.</span>
+                <span>Email</span>
+                <strong>orivexus@gmail.com</strong>
               </div>
-            </div>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="contact-item"
+              href="https://wa.me/918272804740"
+              target="_blank" rel="noopener noreferrer">
+              <div>
+                <span>Quick contact</span>
+                <strong>Message on WhatsApp</strong>
+              </div>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
-  <!-- BOTTOM DOCK -->
-  <div class="dock">
-    <button class="dock-btn active" data-target="hero">
-      <span class="icon">◎</span><span class="label">Overview</span>
-    </button>
-    <button class="dock-btn" data-target="stack">
-      <span class="icon">⚙</span><span class="label">Stack</span>
-    </button>
-    <button class="dock-btn" data-target="team">
-      <span class="icon">👥</span><span class="label">Team</span>
-    </button>
-    <button class="dock-btn" data-target="contact">
-      <span class="icon">✉</span><span class="label">Contact</span>
-    </button>
-  </div>
+  <!-- PARENT COMPANY: KEPT IN THE FINAL SECTION -->
+  <footer class="group-section" id="group">
+    <div class="container">
+      <p class="eyebrow">The parent company</p>
+      <h2 class="group-title">Veyron Group.</h2>
 
-  <footer>
-    © <span id="year"></span> NDL Studio · NC Divisive · Deity_Terror · Lauren.
+      <p class="group-copy">
+        Veyron Group is the umbrella identity connecting our ventures
+        across accommodation, beauty and cosmetics, and online chess.
+        Each business maintains its own audience and services while
+        sharing a commitment to clear communication and long-term growth.
+      </p>
+
+      <div class="group-businesses">
+        <a href="#rakesh-card">
+          Rakesh Room Rent Service
+          <span>Rooms & rentals ↗</span>
+        </a>
+
+        <a href="#pg-card">
+          Elite Living PG
+          <span>Accommodation ↗</span>
+        </a>
+
+        <a href="#beauty-card">
+          Sanjana Beauty Parlour & Cosmetics
+          <span>Beauty & cosmetics ↗</span>
+        </a>
+
+        <a href="#chess-card">
+          Chess HQ
+          <span>Online chess tournaments ↗</span>
+        </a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Veyron Group. All rights reserved.</p>
+
+        <div class="footer-links">
+          <a href="#businesses">Businesses</a>
+          <a href="#contact">Enquiries</a>
+          <a href="mailto:orivexus@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const track = document.getElementById("businessTrack");
+    const cards = Array.from(track.querySelectorAll(".business-card"));
+    const previousButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+    const status = document.getElementById("carouselStatus");
+    const progress = document.getElementById("progressBar");
 
-    // fade-in on scroll
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add('visible');
-      });
-    },{threshold:0.15});
-    document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+    let currentIndex = 0;
+    let scrollTimer;
 
-    // dock navigation
-    function scrollToSection(id){
-      const el = document.getElementById(id);
-      if(!el) return;
-      window.scrollTo({ top: el.offsetTop - 30, behavior:'smooth' });
+    function getStep() {
+      if (cards.length < 2) return track.clientWidth;
+
+      return cards[1].offsetLeft - cards[0].offsetLeft;
     }
-    const dockButtons = document.querySelectorAll('.dock-btn');
-    dockButtons.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const target = btn.getAttribute('data-target');
-        scrollToSection(target);
+
+    function getVisibleCount() {
+      if (window.innerWidth <= 600) return 1;
+      if (window.innerWidth <= 900) return 2;
+      return 3;
+    }
+
+    function getMaxIndex() {
+      return Math.max(0, cards.length - getVisibleCount());
+    }
+
+    function updateCarousel() {
+      const maxIndex = getMaxIndex();
+
+      currentIndex = Math.min(currentIndex, maxIndex);
+      currentIndex = Math.max(currentIndex, 0);
+
+      const step = getStep();
+      track.scrollTo({
+        left: currentIndex * step,
+        behavior: "smooth"
+      });
+
+      status.textContent =
+        "Business " + (currentIndex + 1) + " of " + cards.length;
+
+      progress.style.width =
+        ((currentIndex + 1) / cards.length * 100) + "%";
+
+      previousButton.disabled = currentIndex === 0;
+      nextButton.disabled = currentIndex >= maxIndex;
+    }
+
+    previousButton.addEventListener("click", () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateCarousel();
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentIndex = Math.min(getMaxIndex(), currentIndex + 1);
+      updateCarousel();
+    });
+
+    track.addEventListener("scroll", () => {
+      clearTimeout(scrollTimer);
+
+      scrollTimer = setTimeout(() => {
+        const step = getStep();
+        if (step > 0) {
+          currentIndex = Math.round(track.scrollLeft / step);
+          currentIndex = Math.min(currentIndex, getMaxIndex());
+
+          status.textContent =
+            "Business " + (currentIndex + 1) + " of " + cards.length;
+
+          progress.style.width =
+            ((currentIndex + 1) / cards.length * 100) + "%";
+
+          previousButton.disabled = currentIndex === 0;
+          nextButton.disabled = currentIndex >= getMaxIndex();
+        }
+      }, 80);
+    });
+
+    window.addEventListener("resize", updateCarousel);
+
+    // Expand and collapse individual business cards.
+    document.querySelectorAll(".details-button").forEach(button => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".business-card");
+        const isExpanded = card.classList.toggle("expanded");
+
+        button.setAttribute("aria-expanded", String(isExpanded));
+        button.textContent = isExpanded ? "Hide details −" : "View details +";
       });
     });
-    window.addEventListener('scroll',()=>{
-      const sections = ['hero','stack','team','contact'];
-      const offset = window.scrollY + window.innerHeight*0.35;
-      let current = 'hero';
-      sections.forEach(id=>{
-        const el = document.getElementById(id);
-        if(el && offset >= el.offsetTop) current = id;
+
+    // PG location points visitors to the shared room-rental location.
+    document.getElementById("pgLocationLink").addEventListener("click", event => {
+      event.preventDefault();
+
+      document.getElementById("rakesh-card").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
       });
-      dockButtons.forEach(btn=>{
-        btn.classList.toggle('active', btn.getAttribute('data-target')===current);
-      });
+
+      const rentalCard = document.getElementById("rakesh-card");
+      rentalCard.classList.add("expanded");
+
+      const rentalButton = rentalCard.querySelector(".details-button");
+      rentalButton.setAttribute("aria-expanded", "true");
+      rentalButton.textContent = "Hide details −";
     });
+
+    // Current year in the footer.
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    updateCarousel();
   </script>
+
 </body>
 </html>
